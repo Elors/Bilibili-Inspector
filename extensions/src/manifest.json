@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+
+  "name": "bilibili-inspector",
+  "description": "bilibili试卷I - 自动答题",
+  "version": "0.0.1",
+
+  "icons": {
+    "128" : "imgs/icon.jpg"
+  },
+  "permissions": [
+    "tabs", "http://*/*","https://*/*"
+  ],
+  "content_scripts": [
+    {"js":["inspector.js"],"matches":["https://account.bilibili.com/answer/base"]}
+  ]
+}
