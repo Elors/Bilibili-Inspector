@@ -10,6 +10,5 @@ class Book(models.Model):
 
     def toJSON(self):
         return {
-            'id': self.qs_id,
-            'hash': self.an_id,
+            self.qs_id: self.an_id,
         }
