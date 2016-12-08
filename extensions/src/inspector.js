@@ -5,6 +5,8 @@ class Inspector {
     }
 
     innerToolBar() {
+        console.debug('inner ToolBar')
+
         let toolBar = document.createElement('div');
         toolBar.id = 'toolBar';
         toolBar.setAttribute('style', 'top: 415px; left: 0%; width: 150px; height: 260px; position: fixed; margin-left: 30px; background-color: #F25D8E; opacity: 0.55; border-radius: 5px;');
@@ -64,6 +66,7 @@ class Inspector {
     }
 
     hookAnswer() {
+        console.debug('hook answer')
         let exams = document.getElementById('examListUl').children;
         let object = this;
         for (let exam of exams) {
@@ -82,13 +85,16 @@ class Inspector {
     }
 
     upload(object) {
-        let tag = document.createElement('script');
+
         let arg = JSON.stringify(object.books, null, null);
-        tag.id = 'dynamic-tag';
-        console.info('upload - '+arg);
-        tag.src = 'http://52.197.92.204:8000/exam/upload'+'?data='+arg;
-        tag.setAttribute('type', 'text/javascript');
-        window.document.head.appendChild(tag)
+        let url = 'http://127.0.0.1:8000/exam/upload/'+'?data='+arg
+
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.open('POST', url, true);
+        xmlhttp.onreadystatechange = function() {
+            console.debug(xmlhttp.responseText);
+        }
+        xmlhttp.send(null)
     }
 }
 
