@@ -1,6 +1,5 @@
-from django.shortcuts import render
 from django.views.generic import View
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 import json
 from . import models
 
@@ -27,3 +26,7 @@ class ExamView(View):
         }
         return JsonResponse(response_data)
 
+    def get(self, request):
+        queryset = models.Book.objects.all()
+        books = [book.toJSON() for book in queryset]
+        return JsonResponse(books, safe=False)

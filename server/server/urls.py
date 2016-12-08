@@ -19,5 +19,6 @@ from Bilibili_spy import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^exam/load/$', views.ExamView.as_view(), name="exam_view"),
     url(r'^exam/upload/$', views.ExamView.as_view(), name="exam_view"),
 ]
