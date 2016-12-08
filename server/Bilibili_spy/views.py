@@ -10,10 +10,10 @@ class ExamView(View):
 
         create = 0
         exists = 0
-        for value in params:
-            book,created = models.Book.objects.get_or_create(qs_id=value['id'])
+        for key,value in params.items():
+            book,created = models.Book.objects.get_or_create(qs_id=key)
             if created:
-                book.an_id = value['hash']
+                book.an_id = value
                 create += 1
                 book.save()
             else:
@@ -28,5 +28,5 @@ class ExamView(View):
 
     def get(self, request):
         queryset = models.Book.objects.all()
-        books = [book.toJSON() for book in queryset]
+        books = {book.qs_id:book.an_id for book in queryset}
         return JsonResponse(books, safe=False)
