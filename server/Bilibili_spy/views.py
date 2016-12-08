@@ -5,7 +5,7 @@ import json
 from . import models
 
 class ExamView(View):
-    def get(self, request):
+    def post(self, request):
         jsonstr = request.GET.get('data')
         params = json.loads(jsonstr)
 
@@ -23,5 +23,7 @@ class ExamView(View):
         response_data = {
             'create': create,
             'exists': exists,
+            'message': 'yes',
         }
         return JsonResponse(response_data)
+
