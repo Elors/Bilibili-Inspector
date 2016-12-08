@@ -12,6 +12,6 @@
     "tabs", "http://*/*","https://*/*"
   ],
   "content_scripts": [
-    {"js":["inspector.js"],"matches":["https://account.bilibili.com/answer/base"]}
+    {"js":["inspector.js"],"matches":["http://account.bilibili.com/answer/base"]}
   ]
 }
