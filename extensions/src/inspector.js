@@ -45,8 +45,7 @@ class Inspector {
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4) {
                 object.books = JSON.parse(xmlhttp.responseText);
-                console.debug('已加载'+object.books.length+'条答案');
-                object.run()
+                object.run(object)
             }
         };
         xmlhttp.send()
@@ -54,12 +53,12 @@ class Inspector {
 
     run(object) {
         let exams = document.getElementById('examListUl').children;
+        let count = 0;
         for (let exam of exams) {
             let qid = exam.getAttribute('qs_id');
             let key = object.books[qid];
             let list = exam.getElementsByClassName('solution')[0].children[0].children;
 
-            let count = 0
             for (let node of list) {
                 let hash = node.getAttribute('hash');
                 if (key === hash) {
@@ -68,11 +67,11 @@ class Inspector {
                     count += 1
                 }
             }
-            console.debug('共匹配'+count+'条答案')
         }
+        console.debug('共匹配'+count+'条答案');
     }
 
-    hookAnswer(e) {
+    hookAnswer() {
         console.debug('hook answer');
         let exams = document.getElementById('examListUl').children;
         let object = this;
@@ -82,7 +81,7 @@ class Inspector {
             for (let node of list) node.addEventListener('click', function () {
                 let id = this.parentNode.parentNode.parentNode.getAttribute('qs_id');
                 let hash = this.getAttribute('hash');
-                object.books[id] = hash
+                object.books[id] = hash;
 
                 console.info('MATCH: ' + id + ' - ' + hash)
             });
@@ -92,7 +91,7 @@ class Inspector {
     upload(object) {
 
         let arg = JSON.stringify(object.books, null, null);
-        let url = 'http://127.0.0.1:8000/exam/upload/'+'?data='+arg
+        let url = 'http://127.0.0.1:8000/exam/upload/'+'?data='+arg;
 
         let xmlhttp = new XMLHttpRequest();
         xmlhttp.open('POST', url, true);
