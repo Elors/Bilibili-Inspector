@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from Bilibili_spy import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^exam/upload/$', views.ExamView.as_view(), name="exam_view"),
 ]
